@@ -14,6 +14,7 @@ apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 apply plugin: 'org.akhikhl.gretty'
+apply plugin : 'nu.studer.jooq'
 
 // Build script is need for plugin:
 buildscript {
@@ -23,7 +24,19 @@ buildscript {
         jcenter()
     }
     dependencies {
+        classpath 'org.liquibase:liquibase-gradle-plugin:1.2.1'
         classpath 'org.akhikhl.gretty:gretty:+'
+        classpath 'mysql:mysql-connector-java:5.1.39'
+        classpath 'nu.studer:gradle-jooq-plugin:1.0.5'
+    }
+    configurations.classpath {
+        resolutionStrategy {
+            forcedModules = [
+                    'org.jooq:jooq:3.8.2',
+                    'org.jooq:jooq-meta:3.8.2',
+                    'org.jooq:jooq-codegen:3.8.2'
+            ]
+        }
     }
 }
 
@@ -39,6 +52,9 @@ dependencies {
 
     // We use the latest groovy 2.x version for building this library
     compile 'restling:restling-core:0.0.7'
+    compile 'org.jooq:jooq:3.8.2'
+    compile 'org.jooq:jooq-meta:3.8.2'
+    compile 'org.jooq:jooq-codegen:3.8.2'
 
     // will go to tomcat classpath
     def tomcatVersion = "8.0.26"
@@ -48,6 +64,8 @@ dependencies {
     grettyRunnerTomcat8 "org.apache.tomcat:tomcat-jdbc:$tomcatVersion"
     grettyRunnerTomcat8 "org.apache.tomcat:tomcat-dbcp:$tomcatVersion"
 
+    //dep for liquibase
+
     // We use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.12'
@@ -55,7 +73,7 @@ dependencies {
 }
 
 configurations {
-
+    liquibase
     all*.exclude group: 'org.slf4j', module: 'slf4j-nop'
     all*.exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
 
@@ -65,40 +83,51 @@ configurations {
     }
 }
 
-/*#jooq {
- #   File commonsSqlDir = new File("src/main/java/org/kaddiya/reporting/sql/commons")
-  #  //deleting the  commons sqls that were generated as part of previous build
-  #  if (commonsSqlDir.exists()) {
-  #      commonsSqlDir.deleteDir()
-  #  }
-   # someName(sourceSets.main) {
-    #    jdbc {
-     #       driver = "${databaseDriver}"
-    #        url = "${databaseUrl}"
-    #        user = "${databaseUser}"
-    #        password = "${databasePass}"
-    #    }
-    #    generator {
-    #        database {
-    #            name = "${targetDatabaseName}"
-    #            inputSchema = "${targetDatabaseInputSchemaName}"
-    #        }
-    #        generate {
-    #            relations = true
-    #            deprecated = false
-    #            pojos = true
-    #            pojosEqualsAndHashCode = true
-    #            immutablePojos = false
-    #        }
-    #        target {
-#
-    #            packageName = "${jooqTargetPackageName}"
-    #            directory = "${jooqTargetDirectory}"
-   #         }
-   #     }
-   # }
-#}
-*/
+jooq {
+    File commonsSqlDir = new File("src/main/java/com/proof/sql/commons")
+    //deleting the  commons sqls that were generated as part of previous build
+    if (commonsSqlDir.exists()) {
+        commonsSqlDir.deleteDir()
+    }
+    proof(sourceSets.main) {
+        jdbc {
+            driver = "${databaseDriver}"
+            url = "${databaseUrl}"
+            user = "${databaseUser}"
+            password = "${databasePass}"
+        }
+        generator {
+            database {
+                name = "${targetDatabaseName}"
+                inputSchema = "${targetDatabaseInputSchemaName}"
+            }
+            generate {
+                relations = true
+                deprecated = false
+                pojos = true
+                pojosEqualsAndHashCode = true
+                immutablePojos = false
+            }
+            target {
+                packageName = "${jooqTargetPackageName}"
+                directory = "${jooqTargetDirectory}"
+            }
+        }
+    }
+}
+
+//task for migrate
+task migrate(type: JavaExec) {
+    group = "Liquibase"
+    classpath configurations.liquibase
+    main = "liquibase.integration.commandline.Main"
+    args "--changeLogFile=${dbMasterChangelog}"
+    args "--username=${databaseUser}"
+    args "--password=${databasePass}"
+    args "--url=${databaseUrl}"
+    args "--driver=com.mysql.jdbc.Driver"
+    args "migrate"
+}
 
 gretty {
     systemProperties = System.properties
@@ -112,5 +141,7 @@ gretty {
 test {
     systemProperties = System.properties
 }
+tasks.compileJava.dependsOn tasks.generateProofJooqSchemaSource
+tasks.generateProofJooqSchemaSource.dependsOn tasks.migrate
 
 
