@@ -37,7 +37,8 @@
   -->
   <GlobalNamingResources>
 
-      <Resource name="jdbc/reporting-db" auth="Container"
+    <!--DB to store the reporting metadata -->
+      <Resource name="jdbc/reporting-api-db" auth="Container"
                 factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
                 type="javax.sql.DataSource"
                 minimumIdle="5"
@@ -48,6 +49,19 @@
                 implicitCachingEnabled="true"
                 username="username"
                 password="password" />
+
+                <!-- DB to run the reports on-->
+                 <Resource name="jdbc/target-db" auth="Container"
+                                factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+                                type="javax.sql.DataSource"
+                                minimumIdle="5"
+                                maximumPoolSize="10"
+                                connectionTimeout="300000"
+                                url="jdbc:mysql://localhost:3306/sample-db"
+                                driverClassName="com.mysql.jdbc.Driver"
+                                implicitCachingEnabled="true"
+                                username="username"
+                                password="password" />
 
   </GlobalNamingResources>
 
