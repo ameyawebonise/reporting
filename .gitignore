@@ -5,3 +5,5 @@ gradle/
 .idea/
 .gradle/
 *.iws
+server.xml
+context.xml

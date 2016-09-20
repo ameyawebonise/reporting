@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+
+        <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <ResourceLink name="jdbc/reporting-db"
+                  global="jdbc/reporting-db"
+                  type="javax.sql.DataSource"
+                  driverClassName="com.mysql.jdbc.Driver"
+                  dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"
+                  username ="username"
+                  password="password"  />
+
+</Context>
