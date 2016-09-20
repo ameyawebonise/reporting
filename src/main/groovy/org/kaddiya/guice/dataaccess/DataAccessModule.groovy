@@ -4,6 +4,8 @@ import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import groovy.transform.CompileStatic
 import org.jooq.DSLContext
+import org.kaddiya.dao.InsightsDao
+import org.kaddiya.dao.impl.InsightsDaoImpl
 
 import javax.naming.InitialContext
 import javax.sql.DataSource
@@ -33,6 +35,7 @@ class DataAccessModule extends AbstractModule {
         //make the target DB readonly
         bind(DSLContext).annotatedWith(Names.named("targetDBDSLContext")).toProvider(new DSLContextProvider(targetDBDataSource, true))
 
+        bind(InsightsDao).to(InsightsDaoImpl)
 
     }
 

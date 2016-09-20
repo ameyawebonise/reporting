@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import org.kaddiya.guice.ServicesModule
 import org.kaddiya.guice.dataaccess.DataAccessModule
 import org.kaddiya.routers.RootRouter
+import org.kaddiya.validators.ResultSetValidator
 import restling.guice.modules.RestlingApplicationModule
 
 @Slf4j
@@ -17,5 +18,6 @@ class ServiceApiModule extends RestlingApplicationModule {
     void configureCustomBindings() {
         this.install(new ServicesModule())
         this.install(new DataAccessModule())
+        bind(ResultSetValidator)
     }
 }
