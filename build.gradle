@@ -47,6 +47,15 @@ dependencies {
     // We use the latest groovy 2.x version for building this library
     compile 'restling:restling-core:0.0.7'
 
+    // will go to tomcat classpath
+    def tomcatVersion = "8.0.26"
+    grettyRunnerTomcat8 "com.zaxxer:HikariCP:2.4.0"
+    grettyRunnerTomcat8 "mysql:mysql-connector-java:5.1.6"
+    grettyRunnerTomcat8 "org.apache.tomcat:tomcat-api:$tomcatVersion"
+    grettyRunnerTomcat8 "org.apache.tomcat:tomcat-jdbc:$tomcatVersion"
+    grettyRunnerTomcat8 "org.apache.tomcat:tomcat-dbcp:$tomcatVersion"
+
+
     // We use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 testCompile 'junit:junit:4.12'
@@ -100,8 +109,12 @@ all*.exclude  group : 'org.slf4j', module: 'log4j-over-slf4j'
 */
 
 gretty {
+    systemProperties = System.properties
     servletContainer = 'tomcat8'
     contextPath = ""
+    serverConfigFile= "${projectDir}/server.xml"
+    jvmArgs = ['-Djava.naming.factory.initial=org.apache.naming.java.javaURLContextFactory','-Djava.naming.factory.url.pkgs=org.apache.naming']
+    managedClassReload=true
 }
 
 test {
