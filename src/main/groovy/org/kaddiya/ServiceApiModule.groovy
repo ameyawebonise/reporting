@@ -2,6 +2,7 @@ package org.kaddiya
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import org.kaddiya.guice.ServicesModule
 import org.kaddiya.routers.RootRouter
 import restling.guice.modules.RestlingApplicationModule
 
@@ -13,5 +14,6 @@ class ServiceApiModule extends RestlingApplicationModule {
 
     @Override
     void configureCustomBindings() {
+        this.install(new ServicesModule())
     }
 }
