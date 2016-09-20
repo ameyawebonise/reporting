@@ -1,6 +1,7 @@
-package org.kaddiya.resources.meta
+package org.kaddiya.routers.meta
 
 import groovy.transform.CompileStatic
+import org.kaddiya.resources.meta.PingResource
 import restling.restlet.RestlingRouter
 
 /**

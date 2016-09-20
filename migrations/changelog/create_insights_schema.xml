@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="Ameya" id="databaseTagCreateTableInsightsQueries">
+        <tagDatabase tag="beforeCreateTable_InsightsQueries"/>
+    </changeSet>
+    <changeSet author="Ameya" id="createTableInsightsQueries" dbms="mysql">
+        <createTable tableName="INSIGHTS_QUERIES">
+            <column name="INS_QUERY_ID" type="int(11)" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="INS_QUERY_ID"/>
+            </column>
+            <column name="INS_QUERY_KEY" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INS_QUERY_TITLE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INS_QUERY_DESCRIPTION" type="varchar(255)" defaultValue="null">
+                <constraints nullable="true"/>
+            </column>
+            <column name="INS_QUERY" type="longtext">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INS_QUERY_IS_ACTIVE" type="boolean" defaultValue="true"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="addUniqueConstraintTableInsightQueries" author="Ameya" dbms="mysql">
+        <addUniqueConstraint tableName="INSIGHTS_QUERIES"
+                             columnNames="INS_QUERY_KEY"
+                             constraintName="INS_QUERY_KEY"/>
+        <addUniqueConstraint tableName="INSIGHTS_QUERIES"
+                             columnNames="INS_QUERY_TITLE"
+                             constraintName="INS_QUERY_TITLE"/>
+    </changeSet>
+
+    <changeSet author="Ameya" id="createTableInsightQueriesParams" dbms="mysql">
+        <createTable tableName="INSIGHT_QUERY_PARAMS">
+            <column name="INS_QRY_PARAM_ID" type="int(11)" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="INS_QRY_PARAM_ID"/>
+            </column>
+            <column name="INS_QUERY_ID" type="int(11)">
+                <constraints nullable="false" foreignKeyName="INS_FK_QUERY_ID"
+                             references="INSIGHTS_QUERIES(INS_QUERY_ID)"/>
+            </column>
+            <column name="INS_QRY_PARAM_NAME" type="varchar(255)" defaultValue="null">
+                <constraints nullable="true"/>
+            </column>
+            <column name="INS_QRY_QUALIFIED_PARAM_NAME" type="varchar(255)" defaultValue="null">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ameya" id="createTableInsightReportRequests" dbms="mysql">
+        <createTable tableName="INSIGHT_REPORT_REQUESTS">
+            <column name="INS_RPRT_REQ_ID" type="int(11)" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="INS_RPRT_REQ_ID"/>
+            </column>
+            <column name="INS_QUERY_ID" type="int(11)">
+                <constraints nullable="false" foreignKeyName="INS_FK_QUERY_ID1"
+                             references="INSIGHTS_QUERIES(INS_QUERY_ID)"/>
+            </column>
+            <column name="INS_RPRT_REQ_STATUS" type="enum('PENDING', 'BUILDING', 'COMPLETE', 'ERROR')"
+                    defaultValue="PENDING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INS_RPRT_REQ_ADD_TIME" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INS_RPRT_REQ_UPDATE_TIME" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ameya" id="createTableInsightReportRequestsHistory" dbms="mysql">
+        <createTable tableName="INSIGHT_REPORT_REQUESTS_HITORY">
+            <column name="INS_RPRT_REV_ID" type="int(11)" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="INS_RPRT_REV_ID"/>
+            </column>
+            <column name="INS_RPRT_REQ_ID" type="int(11)">
+            </column>
+            <column name="INS_QUERY_ID" type="int(11)">
+            </column>
+            <column name="INS_RPRT_REQ_USR_ID" type="int(11)">
+            </column>
+            <column name="INS_RPRT_REQ_STATUS" type="enum('PENDING', 'BUILDING', 'COMPLETE')">
+            </column>
+            <column name="INS_RPRT_REQ_ADD_TIME" type="datetime">
+            </column>
+            <column name="INS_RPRT_REQ_UPDATE_TIME" type="datetime">
+            </column>
+            <column name="INS_RPRT_REQ_HIST_ADD_TIME" type="datetime">
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
