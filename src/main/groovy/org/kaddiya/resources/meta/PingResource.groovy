@@ -1,23 +1,15 @@
 package org.kaddiya.resources.meta
 
-import groovy.transform.CompileStatic
-import groovy.util.logging.Slf4j
 import org.restlet.resource.Get
 import org.restlet.resource.ServerResource
 
-@Slf4j
-@CompileStatic
+/**
+ * Created by Webonise on 20/09/16.
+ */
 class PingResource extends ServerResource {
 
-    static class Pong {
-        final boolean pong = true
-    }
-
     @Get
-    Pong pinged() {
-        log.info("They called ping!")
-        def toReturn = new Pong()
-        return toReturn
+    String ping() {
+        return "pong"
     }
-
 }
