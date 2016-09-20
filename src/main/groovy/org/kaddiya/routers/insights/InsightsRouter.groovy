@@ -9,7 +9,7 @@ import restling.restlet.RestlingRouter
 class InsightsRouter extends RestlingRouter {
     @Override
     void init() throws Exception {
-        attach("/list", InsightsResource)
+        attach("/", InsightsResource)
 
 /*        attach("/query", InsightsQueryResource)
         attach("/query/{queryId}", InsightsQueryResource)
