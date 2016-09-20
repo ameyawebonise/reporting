@@ -15,6 +15,6 @@ class APIRouter extends RestlingRouter {
     @Override
     void init() throws Exception {
         attachSubRouter("/meta", MetaRouter)
-        attachSubRouter("/insights",InsightsRouter)
+        attachSubRouter("/insights", InsightsRouter)
     }
 }

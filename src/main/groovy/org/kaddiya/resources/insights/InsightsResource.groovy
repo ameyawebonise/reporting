@@ -14,13 +14,13 @@ class InsightsResource extends ServerResource {
     final InsightsService insightsServiceImpl
 
     @Inject
-    public InsightsResource(InsightsService impl){
+    public InsightsResource(InsightsService impl) {
         this.insightsServiceImpl = impl
     }
 
     @Get
     public List<InsightsQueries> getAllQueries() {
-       return getInsightsServiceImpl().getAllInsightsQueries()
+        return getInsightsServiceImpl().getAllInsightsQueries()
     }
 
 }
