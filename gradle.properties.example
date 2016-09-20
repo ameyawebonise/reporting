@@ -1,0 +1,9 @@
+databaseDriver=com.mysql.jdbc.Driver
+databaseUser=root
+databasePass=webonise!@#890
+dbMasterChangelog=db.changelog-master.xml
+databaseUrl=jdbc:mysql://localhost:3306/reporting-db?createDatabaseIfNotExist=true
+targetDatabaseInputSchemaName=proof
+targetDatabaseName=org.jooq.util.mysql.MySQLDatabase
+jooqTargetPackageName=com.proof.sql.commons
+jooqTargetDirectory=src/main/java
