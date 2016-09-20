@@ -26,7 +26,7 @@ class InsightsResource extends ServerResource {
     }
 
     @Post
-    String saveAndFlushQueryData(InsightsQueryData insightsQueryData){
+    String saveAndFlushQueryData(InsightsQueryData insightsQueryData) {
         insightsServiceImpl.saveAndFlushQueryData(insightsQueryData)
         return "done"
     }

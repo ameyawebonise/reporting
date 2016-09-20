@@ -12,15 +12,12 @@ import org.jooq.exception.DataAccessException
 import org.jooq.impl.DSL
 import org.kaddiya.dao.InsightsDao
 import org.kaddiya.pojos.InsightsQueryData
-import org.kaddiya.reporting.sql.commons.tables.pojos.InsightReportRequests
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries
 import org.kaddiya.validators.ResultSetValidator
 import org.restlet.resource.ResourceException
 
-import static org.kaddiya.reporting.sql.commons.tables.InsightsQueries.INSIGHTS_QUERIES;
-import static org.kaddiya.reporting.sql.commons.tables.InsightQueryParams.INSIGHT_QUERY_PARAMS;
-
-
+import static org.kaddiya.reporting.sql.commons.tables.InsightQueryParams.INSIGHT_QUERY_PARAMS
+import static org.kaddiya.reporting.sql.commons.tables.InsightsQueries.INSIGHTS_QUERIES
 
 /**
  * Created by Webonise on 20/09/16.
@@ -57,12 +54,12 @@ class InsightsDaoImpl implements InsightsDao {
             }
         } catch (DataAccessException exception) {
             log.error(exception.cause.message)
-            throw new ResourceException(409,"duplicate found")
+            throw new ResourceException(409, "duplicate found")
         }
     }
 
 
-    boolean updateQueryData(Record queryRecord, final InsightsQueryData insightsQueryData){
+    boolean updateQueryData(Record queryRecord, final InsightsQueryData insightsQueryData) {
         reportingDBDSLContext.transaction { configuration ->
             queryRecord.from(insightsQueryData.insightQuery)
             if (DSL.using(configuration as Configuration)

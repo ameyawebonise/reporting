@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface InsightsService {
     public List<InsightsQueries> getAllInsightsQueries();
+
     public void saveAndFlushQueryData(InsightsQueryData data);
 }

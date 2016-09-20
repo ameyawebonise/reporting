@@ -18,9 +18,10 @@ class InsightsServiceImpl implements InsightsService {
     private final InsightsDao insightsDaoImpl
 
     @Inject
-    public InsightsServiceImpl(InsightsDao impl){
+    public InsightsServiceImpl(InsightsDao impl) {
         this.insightsDaoImpl = impl
     }
+
     @Override
     List<InsightsQueries> getAllInsightsQueries() {
         return insightsDaoImpl.getAllInsightsQueries()
