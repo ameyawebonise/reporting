@@ -2,6 +2,7 @@ package org.kaddiya.routers
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import org.kaddiya.routers.insights.InsightsRouter
 import org.kaddiya.routers.meta.MetaRouter
 import restling.restlet.RestlingRouter
 
@@ -14,5 +15,6 @@ class APIRouter extends RestlingRouter {
     @Override
     void init() throws Exception {
         attachSubRouter("/meta", MetaRouter)
+        attachSubRouter("/insights",InsightsRouter)
     }
 }
