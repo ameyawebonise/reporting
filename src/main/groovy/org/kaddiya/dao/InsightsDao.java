@@ -1,5 +1,7 @@
 package org.kaddiya.dao;
 
+import org.jooq.Record;
+import org.kaddiya.pojos.InsightsQueryData;
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightReportRequests;
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries;
 
@@ -13,9 +15,11 @@ public interface InsightsDao {
    List<InsightsQueries> getAllInsightsQueries();
 
     //TODO: provide implementaiton of the following
-    /*
+
     void saveQueryData(InsightsQueryData insightsQueryData);
 
+    //boolean updateQueryData(Record queryRecord, InsightsQueryData insightsQueryData);
+/*
     //InsightsQueryData getInsightsSqlByQueryId(int queryId);
 
     boolean removeInsightsSqlByQueryId(int queryId);
@@ -26,7 +30,7 @@ public interface InsightsDao {
 
     boolean isQueryKeyNotExists(String queryKey);
 
-    //boolean updateQueryData(Record queryRecord, InsightsQueryData insightsQueryData);
+    //
 
     // void saveAndFlushQueryData(InsightsQueryData insightsQueryData);
 

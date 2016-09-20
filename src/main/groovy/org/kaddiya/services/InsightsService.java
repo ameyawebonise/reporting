@@ -1,5 +1,6 @@
 package org.kaddiya.services;
 
+import org.kaddiya.pojos.InsightsQueryData;
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries;
 
 import java.util.List;
@@ -9,4 +10,5 @@ import java.util.List;
  */
 public interface InsightsService {
     public List<InsightsQueries> getAllInsightsQueries();
+    public void saveAndFlushQueryData(InsightsQueryData data);
 }

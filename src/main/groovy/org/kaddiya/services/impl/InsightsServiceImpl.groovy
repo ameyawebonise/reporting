@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.kaddiya.dao.InsightsDao
+import org.kaddiya.pojos.InsightsQueryData
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries
 import org.kaddiya.services.InsightsService
 
@@ -23,5 +24,10 @@ class InsightsServiceImpl implements InsightsService {
     @Override
     List<InsightsQueries> getAllInsightsQueries() {
         return insightsDaoImpl.getAllInsightsQueries()
+    }
+
+    @Override
+    void saveAndFlushQueryData(InsightsQueryData insightsQueryData) {
+        insightsDaoImpl.saveQueryData(insightsQueryData)
     }
 }
