@@ -3,9 +3,11 @@ package org.kaddiya.resources.insights
 import com.google.inject.Inject
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import org.kaddiya.pojos.InsightExecutionRequest
 import org.kaddiya.pojos.InsightsQueryData
 import org.kaddiya.services.InsightsService
 import org.restlet.resource.Get
+import org.restlet.resource.Post
 import org.restlet.resource.ResourceException
 import org.restlet.resource.ServerResource
 
@@ -33,5 +35,11 @@ class InsightDetailsResource extends ServerResource {
         InsightsQueryData data = insightsServiceImpl.getInsightDetailsById(insightId)
         return data
 
+    }
+
+    @Post
+    public String getInsightResult(InsightExecutionRequest request) {
+        def insightReportDetailsResult = insightsServiceImpl.getQueryResult(request.queryId, request.params)
+        return "insightReportDetailsResult as data"
     }
 }

@@ -2,9 +2,8 @@ package org.kaddiya.helper
 
 import groovy.json.JsonOutput
 import org.apache.commons.csv.CSVParser
+
 import static org.apache.commons.csv.CSVFormat.DEFAULT
-
-
 
 /**
  * Created by Webonise on 21/09/16.
@@ -16,7 +15,7 @@ class CsvToJsonConverter {
 
 
     CsvToJsonConverter(String csvStringToConvert) {
-        assert csvStringToConvert : "Csv String passed to convert can not be null or empty"
+        assert csvStringToConvert: "Csv String passed to convert can not be null or empty"
         this.csvStringToConvert = csvStringToConvert
     }
 

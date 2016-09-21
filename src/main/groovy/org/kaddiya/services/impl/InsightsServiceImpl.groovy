@@ -3,12 +3,11 @@ package org.kaddiya.services.impl
 import com.google.inject.Inject
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import org.apache.commons.lang3.StringUtils
 import org.kaddiya.dao.InsightsDao
 import org.kaddiya.pojos.InsightsQueryData
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries
 import org.kaddiya.services.InsightsService
-import org.apache.commons.lang3.StringUtils
-
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -57,17 +56,17 @@ class InsightsServiceImpl implements InsightsService {
     }
 
     private String setQueryParameterValue(String sql, Map<String, String> parameterValues) {
+        String finalSql
         parameterValues.each {
-            Matcher matcher = Pattern.compile(":" + it.getKey()).matcher(sql);
+            Matcher matcher = Pattern.compile(":" + (it.getKey().replace("\"",""))).matcher(sql);
             while (matcher.find()) {
                 String value = it.getValue()
                 if (!StringUtils.isNumeric(value) && value.indexOf("\'") < 0) {
                     value = String.format("%s", value)
                 }
-                sql = sql.replaceAll(matcher.group(0), value)
+                finalSql = sql.replaceAll(matcher.group(0), value)
             }
         }
-        return sql
+        return finalSql
     }
-
 }

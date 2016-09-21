@@ -4,7 +4,6 @@ import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.kaddiya.guice.ServicesModule
 import org.kaddiya.guice.dataaccess.DataAccessModule
-import org.kaddiya.helper.CsvToJsonConverter
 import org.kaddiya.routers.RootRouter
 import org.kaddiya.validators.ResultSetValidator
 import restling.guice.modules.RestlingApplicationModule

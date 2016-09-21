@@ -155,4 +155,4 @@ task migrate(type: JavaExec) {
 
 
 tasks.compileJava.dependsOn tasks.generateProofJooqSchemaSource
-tasks.generateProofJooqSchemaSource.dependsOn tasks.migrate
+//tasks.generateProofJooqSchemaSource.dependsOn tasks.migrate

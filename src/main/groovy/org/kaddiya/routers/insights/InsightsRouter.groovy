@@ -13,6 +13,6 @@ class InsightsRouter extends RestlingRouter {
     void init() throws Exception {
         attach("/", InsightsResource)
         attach("/{insightId}", InsightDetailsResource)
-        attach("/{insightId}/result",InsightResultResource)
+        attach("/results", InsightResultResource)
     }
 }
