@@ -31,4 +31,5 @@ public interface InsightsDao {
 
     InsightReportRequests getInsightReportRequest(int insightRprReqtId);
     */
+
 }
