@@ -22,15 +22,16 @@ class InsightDetailsResource extends ServerResource {
     public InsightDetailsResource(InsightsService impl) {
         this.insightsServiceImpl = impl
     }
+
     @Get
-    InsightsQueryData getInsightDetailsById(){
+    InsightsQueryData getInsightDetailsById() {
         int insightId = getAttribute("insightId") as int
-        if(!insightId){
-            throw new ResourceException(400,"bad insight ID")
+        if (!insightId) {
+            throw new ResourceException(400, "bad insight ID")
         }
 
         InsightsQueryData data = insightsServiceImpl.getInsightDetailsById(insightId)
-        return  data
+        return data
 
     }
 }

@@ -7,6 +7,11 @@ import org.kaddiya.dao.InsightsDao
 import org.kaddiya.pojos.InsightsQueryData
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries
 import org.kaddiya.services.InsightsService
+import org.apache.commons.lang3.StringUtils
+
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * Created by Webonise on 20/09/16.
@@ -36,4 +41,33 @@ class InsightsServiceImpl implements InsightsService {
     InsightsQueryData getInsightDetailsById(int insightId) {
         return insightsDaoImpl.getInsightsSqlByQueryId(insightId)
     }
+
+    @Override
+    String getQueryResult(int insightId, Map<String, String> insightsParamMap) {
+        InsightsQueryData insightsQueryData = insightsDaoImpl.getInsightsSqlByQueryId(insightId)
+        String query = insightsQueryData.insightQuery.getInsQuery();
+
+      /*  if (insightsQueryData.queryParam) {
+            query = setQueryParameterValue(query, insightsParamMap)
+        }
+
+        def queryResult = insightsDao.getQueryResult(query)
+        log.debug("Query result in CSV format \n ${queryResult}")*/
+        return ""
+    }
+
+    private String setQueryParameterValue(String sql, Map<String, String> parameterValues) {
+        parameterValues.each {
+            Matcher matcher = Pattern.compile(":" + it.getKey()).matcher(sql);
+            while (matcher.find()) {
+                String value = it.getValue()
+                if (!StringUtils.isNumeric(value) && value.indexOf("\'") < 0) {
+                    value = String.format("%s", value)
+                }
+                sql = sql.replaceAll(matcher.group(0), value)
+            }
+        }
+        return sql
+    }
+
 }

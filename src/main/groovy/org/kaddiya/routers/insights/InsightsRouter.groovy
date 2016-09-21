@@ -11,7 +11,8 @@ class InsightsRouter extends RestlingRouter {
     @Override
     void init() throws Exception {
         attach("/", InsightsResource)
-        attach("/{insightId}",InsightDetailsResource)
+        attach("/{insightId}", InsightDetailsResource)
+        attach("/{insightId}/result",InsightResultResource)
 /*        attach("/query", InsightsQueryResource)
         attach("/query/{queryId}", InsightsQueryResource)
         attach("/queryTitle", InsightsQueryTitleResource)

@@ -61,7 +61,7 @@ class InsightsDaoImpl implements InsightsDao {
 
 
     @Override
-    InsightsQueryData getInsightsSqlByQueryId(int queryId){
+    InsightsQueryData getInsightsSqlByQueryId(int queryId) {
 
         def iqp = INSIGHT_QUERY_PARAMS.as("iqp")
         def iq = INSIGHTS_QUERIES.as("iq")
@@ -72,7 +72,7 @@ class InsightsDaoImpl implements InsightsDao {
             def insightsSql = DSL.using(configuration as Configuration).selectFrom(iq).
                     where(iq.INS_QUERY_ID.eq(queryIdParam)).fetch()
             Record record = null;
-            if(insightsSql){
+            if (insightsSql) {
                 record = insightsSql.get(0)
             }
             insightsQueryData.insightQuery = resultsetValidator.validateResult(record,
