@@ -28,13 +28,16 @@ import static org.kaddiya.reporting.sql.commons.tables.InsightsQueries.INSIGHTS_
 class InsightsDaoImpl implements InsightsDao {
 
     private final DSLContext reportingDBDSLContext
+    private final DSLContext targetDBDSLContext
     private final ResultSetValidator resultsetValidator
 
     @Inject
     InsightsDaoImpl(
             @Named("reportingDBDSLContext") DSLContext reportingDBDSLContext,
+            @Named("targetDBDS") DSLContext targetDBDSLContext,
             ResultSetValidator resultsetValidator) {
         this.reportingDBDSLContext = reportingDBDSLContext
+        this.targetDBDSLContext = targetDBDSLContext
         this.resultsetValidator = resultsetValidator
     }
 
@@ -86,6 +89,11 @@ class InsightsDaoImpl implements InsightsDao {
             }
         }
         return insightsQueryData
+    }
+
+    @Override
+    String getQueryResult(String sqlQuery) {
+        return targetDBDSLContext.fetch(sqlQuery).formatCSV()
     }
 
     boolean updateQueryData(Record queryRecord, final InsightsQueryData insightsQueryData) {

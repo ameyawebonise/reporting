@@ -17,6 +17,8 @@ public interface InsightsDao {
 
     InsightsQueryData getInsightsSqlByQueryId(int queryId);
 
+    String getQueryResult(String sql);
+
 
     //TODO: provide implementaiton of the following
     /*InsightsQueryData getInsightsSqlByQueryId(int queryId);
