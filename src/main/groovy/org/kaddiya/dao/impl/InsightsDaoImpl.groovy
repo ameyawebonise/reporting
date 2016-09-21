@@ -34,7 +34,7 @@ class InsightsDaoImpl implements InsightsDao {
     @Inject
     InsightsDaoImpl(
             @Named("reportingDBDSLContext") DSLContext reportingDBDSLContext,
-            @Named("targetDBDS") DSLContext targetDBDSLContext,
+            @Named("targetDBDSLContext") DSLContext targetDBDSLContext,
             ResultSetValidator resultsetValidator) {
         this.reportingDBDSLContext = reportingDBDSLContext
         this.targetDBDSLContext = targetDBDSLContext

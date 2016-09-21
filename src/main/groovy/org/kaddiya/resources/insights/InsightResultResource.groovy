@@ -2,6 +2,7 @@ package org.kaddiya.resources.insights
 
 import com.google.inject.Inject
 import org.kaddiya.helper.CsvToJsonConverter
+import org.kaddiya.services.InsightsService
 import org.restlet.resource.Get
 import org.restlet.resource.Post
 import org.restlet.resource.ServerResource
@@ -11,17 +12,17 @@ import org.restlet.resource.ServerResource
  */
 class InsightResultResource extends ServerResource {
 
+    InsightsService insightsServiceImpl
 
-
-    public InsightResultResource(CsvToJsonConverter csvToJsonConverter){
-            this.csvToJsonConverter =csvToJsonConverter
+    @Inject
+    public InsightResultResource(InsightsService insightsServiceImpl){
+        this.insightsServiceImpl = insightsServiceImpl
     }
 
     @Post
     public String getInsightResult(){
         int insRprtReqId = Integer.valueOf(getQueryValue("insightId"))
-        def insightReportDetails =  insightReportsResultService.getReportResultCSV(authToken, insRprtReqId)
-        insightReportDetails.queryResult = new CsvToJsonConverter(insightReportDetails.queryResult).getJson()
-        return ""
+        def insightReportDetailsResult =  insightsServiceImpl.getQueryResult(insRprtReqId)
+        return "insightReportDetailsResult as data"
     }
 }

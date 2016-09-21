@@ -14,6 +14,7 @@ class CsvToJsonConverter {
     private def listing = []
     private String csvStringToConvert
 
+
     CsvToJsonConverter(String csvStringToConvert) {
         assert csvStringToConvert : "Csv String passed to convert can not be null or empty"
         this.csvStringToConvert = csvStringToConvert

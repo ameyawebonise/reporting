@@ -1,6 +1,7 @@
 package org.kaddiya.routers.insights
 
 import org.kaddiya.resources.insights.InsightDetailsResource
+import org.kaddiya.resources.insights.InsightResultResource
 import org.kaddiya.resources.insights.InsightsResource
 import restling.restlet.RestlingRouter
 
@@ -13,13 +14,5 @@ class InsightsRouter extends RestlingRouter {
         attach("/", InsightsResource)
         attach("/{insightId}", InsightDetailsResource)
         attach("/{insightId}/result",InsightResultResource)
-/*        attach("/query", InsightsQueryResource)
-        attach("/query/{queryId}", InsightsQueryResource)
-        attach("/queryTitle", InsightsQueryTitleResource)
-        attach("/queryKey", InsightsQueryKeyResource)
-        attach("/query/update", InsightsQueryResource)
-        attach("/implicitParams", InsightsImplicitParamResource)
-        attach("/reportrequests", InsightReportRequestResource)
-        attach("/reportresult", InsightsReportsResultsResource)*/
     }
 }

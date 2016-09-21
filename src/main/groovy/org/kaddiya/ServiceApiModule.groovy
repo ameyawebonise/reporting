@@ -20,6 +20,6 @@ class ServiceApiModule extends RestlingApplicationModule {
         this.install(new ServicesModule())
         this.install(new DataAccessModule())
         bind(ResultSetValidator)
-        bind(CsvToJsonConverter)
+
     }
 }

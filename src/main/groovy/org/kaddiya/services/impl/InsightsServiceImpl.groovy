@@ -51,8 +51,8 @@ class InsightsServiceImpl implements InsightsService {
             query = setQueryParameterValue(query, insightsParamMap)
         }
 
-      /*  def queryResult = insightsDao.getQueryResult(query)
-        log.debug("Query result in CSV format \n ${queryResult}")*/
+        def queryResult = insightsDaoImpl.getQueryResult(query)
+        log.debug("Query result in CSV format \n ${queryResult}")
         return ""
     }
 
