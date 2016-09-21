@@ -15,6 +15,8 @@ public interface InsightsDao {
 
     void saveQueryData(InsightsQueryData insightsQueryData);
 
+    InsightsQueryData getInsightsSqlByQueryId(int queryId);
+
 
     //TODO: provide implementaiton of the following
     /*InsightsQueryData getInsightsSqlByQueryId(int queryId);

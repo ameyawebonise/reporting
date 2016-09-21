@@ -12,6 +12,7 @@ import org.jooq.exception.DataAccessException
 import org.jooq.impl.DSL
 import org.kaddiya.dao.InsightsDao
 import org.kaddiya.pojos.InsightsQueryData
+import org.kaddiya.reporting.sql.commons.tables.pojos.InsightQueryParams
 import org.kaddiya.reporting.sql.commons.tables.pojos.InsightsQueries
 import org.kaddiya.validators.ResultSetValidator
 import org.restlet.resource.ResourceException
@@ -58,6 +59,34 @@ class InsightsDaoImpl implements InsightsDao {
         }
     }
 
+
+    @Override
+    InsightsQueryData getInsightsSqlByQueryId(int queryId){
+
+        def iqp = INSIGHT_QUERY_PARAMS.as("iqp")
+        def iq = INSIGHTS_QUERIES.as("iq")
+        def queryIdParam = DSL.param("QUERY_ID", queryId)
+        def insightsQueryData = new InsightsQueryData()
+
+        reportingDBDSLContext.transaction { configuration ->
+            def insightsSql = DSL.using(configuration as Configuration).selectFrom(iq).
+                    where(iq.INS_QUERY_ID.eq(queryIdParam)).fetch()
+            Record record = null;
+            if(insightsSql){
+                record = insightsSql.get(0)
+            }
+            insightsQueryData.insightQuery = resultsetValidator.validateResult(record,
+                    "No record found for Queryid ${queryId}", InsightsQueries)
+
+            def queryParam = DSL.using(configuration as Configuration).selectFrom(iqp).
+                    where(iqp.INS_QUERY_ID.eq(queryIdParam)).fetch()
+            if (queryParam.size() > 0) {
+                insightsQueryData.queryParam = resultsetValidator.validateResult(queryParam,
+                        "No record found for Queryid ${queryId}", InsightQueryParams)
+            }
+        }
+        return insightsQueryData
+    }
 
     boolean updateQueryData(Record queryRecord, final InsightsQueryData insightsQueryData) {
         reportingDBDSLContext.transaction { configuration ->

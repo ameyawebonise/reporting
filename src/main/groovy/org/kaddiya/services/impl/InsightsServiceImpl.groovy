@@ -31,4 +31,9 @@ class InsightsServiceImpl implements InsightsService {
     void saveAndFlushQueryData(InsightsQueryData insightsQueryData) {
         insightsDaoImpl.saveQueryData(insightsQueryData)
     }
+
+    @Override
+    InsightsQueryData getInsightDetailsById(int insightId) {
+        return insightsDaoImpl.getInsightsSqlByQueryId(insightId)
+    }
 }
