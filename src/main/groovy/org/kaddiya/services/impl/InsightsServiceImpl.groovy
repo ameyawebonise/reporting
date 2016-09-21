@@ -52,7 +52,7 @@ class InsightsServiceImpl implements InsightsService {
 
         def queryResult = insightsDaoImpl.getQueryResult(query)
         log.debug("Query result in CSV format \n ${queryResult}")
-        return ""
+        return queryResult
     }
 
     private String setQueryParameterValue(String sql, Map<String, String> parameterValues) {

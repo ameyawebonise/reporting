@@ -40,6 +40,6 @@ class InsightDetailsResource extends ServerResource {
     @Post
     public String getInsightResult(InsightExecutionRequest request) {
         def insightReportDetailsResult = insightsServiceImpl.getQueryResult(request.queryId, request.params)
-        return "insightReportDetailsResult as data"
+        return insightReportDetailsResult
     }
 }
