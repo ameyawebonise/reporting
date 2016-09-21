@@ -58,7 +58,7 @@ class InsightsServiceImpl implements InsightsService {
     private String setQueryParameterValue(String sql, Map<String, String> parameterValues) {
         String finalSql
         parameterValues.each {
-            Matcher matcher = Pattern.compile(":" + (it.getKey().replace("\"",""))).matcher(sql);
+            Matcher matcher = Pattern.compile(":" + (it.getKey().replace("\"", ""))).matcher(sql);
             while (matcher.find()) {
                 String value = it.getValue()
                 if (!StringUtils.isNumeric(value) && value.indexOf("\'") < 0) {

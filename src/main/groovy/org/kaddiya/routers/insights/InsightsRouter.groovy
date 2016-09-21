@@ -1,7 +1,6 @@
 package org.kaddiya.routers.insights
 
 import org.kaddiya.resources.insights.InsightDetailsResource
-import org.kaddiya.resources.insights.InsightResultResource
 import org.kaddiya.resources.insights.InsightsResource
 import restling.restlet.RestlingRouter
 
@@ -13,6 +12,5 @@ class InsightsRouter extends RestlingRouter {
     void init() throws Exception {
         attach("/", InsightsResource)
         attach("/{insightId}", InsightDetailsResource)
-        attach("/results", InsightResultResource)
     }
 }
