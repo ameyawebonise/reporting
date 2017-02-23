@@ -56,7 +56,7 @@ class InsightsServiceImpl implements InsightsService {
     }
 
     private String setQueryParameterValue(String sql, Map<String, String> parameterValues) {
-        String finalSql
+        String finalSql = sql
         parameterValues.each {
             Matcher matcher = Pattern.compile(":" + (it.getKey().replace("\"", ""))).matcher(sql);
             while (matcher.find()) {
@@ -64,7 +64,7 @@ class InsightsServiceImpl implements InsightsService {
                 if (!StringUtils.isNumeric(value) && value.indexOf("\'") < 0) {
                     value = String.format("%s", value)
                 }
-                finalSql = sql.replaceAll(matcher.group(0), value)
+                finalSql = finalSql.replaceAll(matcher.group(0), value)
             }
         }
         return finalSql
